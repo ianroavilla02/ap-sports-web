@@ -36,7 +36,8 @@
 
   /* ---------- imagen ---------- */
   .art{position:relative;background:#1a1a1a;overflow:hidden}
-  .art img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block}
+  /* el reel es 9:16: centrado, para que el monograma y las etiquetas no se corten */
+  .art video{width:100%;height:100%;object-fit:cover;object-position:50% 50%;display:block}
   @media (max-width:860px){.art{aspect-ratio:4/5}}
 
   /* ---------- contenido ---------- */
@@ -140,7 +141,8 @@
 
 <div class="wrap">
   <div class="art">
-    <img src="portada.jpg" alt="Modelo con conjunto de AP Sports en exterior">
+    <video src="reel.mp4" poster="reel-poster.jpg" autoplay muted loop playsinline preload="auto"
+      aria-label="Detalles de AP Sports: etiquetas, prendas y bolsas con el monograma"></video>
   </div>
 
   <div class="panel">
@@ -203,6 +205,13 @@
 </div>
 
 <script>
+// Movimiento reducido: el video queda quieto en su primer cuadro
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const reel = document.querySelector('.art video');
+  reel.removeAttribute('autoplay');
+  reel.pause();
+}
+
 // ----- Configuración: llenar antes de publicar -----
 const CONFIG = {
   SUPABASE_URL: "https://ajczmdqkvjjoneeuuxpm.supabase.co",
